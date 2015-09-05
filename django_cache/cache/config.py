@@ -1,0 +1,6 @@
+__author__ = 'Administrator'
+
+MEMCACHED_SERVERS = ['127.0.0.1:11211']
+MEMCACHED_DEBUG = 0
+MEMCACHED_EXPIRED = 30
+
