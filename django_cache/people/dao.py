@@ -2,14 +2,15 @@
 # -*- coding:utf-8 -*-
 from django.db import connection
 from django_cache.people.model import People
+from django_cache.people.people_dao import PeopleDao
 
 __author__ = 'Administrator'
 
 from django_cache.cache.cache_decorator import *
 
 
-@cache_set(People)
-def people_add(name, age, entity='people'):
+@cache_set()
+def people_add(name, age):
     people = People()
     people.name = name
     people.age = age
@@ -17,16 +18,13 @@ def people_add(name, age, entity='people'):
     return people
 
 
-@cache_get(People)
+@cache_get()
 def people_get(people_id):
     print 'people_get'
-    peoples = People.objects.filter(id=people_id).all()
-    if len(peoples) > 0:
-        return peoples[0]
-    return None
+    return _get(people_id)
 
 
-@cache_update(People)
+@cache_update()
 def people_update(people_id, name):
     people = people_get(people_id)
     if people:
@@ -36,13 +34,20 @@ def people_update(people_id, name):
     return people
 
 
-@cache_delete(People)
+@cache_delete()
 def people_delete(people_id):
-    people = people_get(people_id)
+    people = _get(people_id)
     if people:
         people.delete()
     print 'people_delete'
     return people
+
+
+def _get(people_id):
+    peoples = People.objects.filter(id=people_id).all()
+    if len(peoples) > 0:
+        return peoples[0]
+    return None
 
 
 def people_select(age):
@@ -59,4 +64,5 @@ def people_select(age):
 
 if __name__ == '__main__':
     people_add('zhangxiaofan', 24)
+    peopleDao = PeopleDao()
 

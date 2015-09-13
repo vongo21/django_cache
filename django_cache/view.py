@@ -9,6 +9,8 @@ from django_cache.utils.json_util import *
 
 __author__ = 'Administrator'
 
+peopleDao = PeopleDao()
+
 
 def add_people(request):
     print 'enter add people view method....'
@@ -22,12 +24,18 @@ def add_people(request):
 def get_people(request):
     print 'enter get people view method....'
     people_id = request.GET.get('people_id', 1)
-    people = people_get(people_id)
-    print people
-    data = people.to_json()
-    people0 = People()
-    people0.to_object(json.dumps(data))
-    print people0
+    # people = people_get(people_id)
+    people = peopleDao.model_get(people_id)
+
+    data = dict()
+
+    if people:
+        print people
+        data = people.to_json()
+        people0 = People()
+        people0.to_object(json.dumps(data))
+        print people0
+
     response_data = {'success': True, 'data': data}
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
@@ -71,7 +79,7 @@ def select_people(request):
         success = False
         msg = u'age不合法'
     else:
-        peoples = people_select(age)
+        peoples = peopleDao.model_select('age = %s', age)
         if peoples:
             for people in peoples:
                 datas.append(people.to_json())
