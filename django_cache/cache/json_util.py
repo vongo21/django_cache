@@ -3,15 +3,20 @@
 from json import JSONDecoder
 from json import JSONEncoder
 
-__author__ = 'Administrator'
+__author__ = 'Zhangxiaofan'
 
 
 def object_to_json(entity):
+    entity_dict = object_to_dict(entity)
+    return JSONEncoder().encode(entity_dict)
+
+
+def object_to_dict(entity):
     entity_dict = dict()
     for key, value in entity.__dict__.items():
         if not key[0] == '_':
             entity_dict[key] = value
-    return JSONEncoder().encode(entity_dict)
+    return entity_dict
 
 
 def json_to_object(entity_cls, json_str):

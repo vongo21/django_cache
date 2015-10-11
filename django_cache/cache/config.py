@@ -1,4 +1,4 @@
-__author__ = 'Administrator'
+__author__ = 'Zhangxiaofan'
 
 MEMCACHED_SERVERS = ['127.0.0.1:11211']
 MEMCACHED_DEBUG = 0

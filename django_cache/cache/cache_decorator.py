@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 
-__author__ = 'Administrator'
+__author__ = 'Zhangxiaofan'
 
 from mc_util import MemcachedClient
 from django_cache.cache.json_util import *
@@ -73,7 +73,6 @@ def cache_update(expired=0):
                 cls_obj = args[0].model
                 key = cls_obj._meta.model_name + '_' + str(args[1])
                 memcached_client.set(key, object_to_json(value), expired)
-                print value.to_json()
             return value
         print '# 根据函数的更新结果，相应更新缓存中的值'
         return cache_func

@@ -7,8 +7,16 @@ __author__ = 'Administrator'
 
 
 def object_to_json(entity):
-    entity_dict = entity.__dict__
+    entity_dict = object_to_dict(entity)
     return JSONEncoder().encode(entity_dict)
+
+
+def object_to_dict(entity):
+    entity_dict = dict()
+    for key, value in entity.__dict__.items():
+        if not key[0] == '_':
+            entity_dict[key] = value
+    return entity_dict
 
 
 def json_to_object(entity_cls, json_str):

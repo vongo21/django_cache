@@ -4,7 +4,7 @@ from config import MEMCACHED_SERVERS
 from config import MEMCACHED_DEBUG
 import memcache
 
-__author__ = 'Administrator'
+__author__ = 'Zhangxiaofan'
 
 
 class MemcachedClient(object):
